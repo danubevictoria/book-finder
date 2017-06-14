@@ -1,7 +1,19 @@
 #input {
+	height: 40px;
 	width: 90%;
+	font-size: 20px;
 }
 
 #book-finder {
 	margin-top: 100px; 
+}
+
+#search {
+	font-size: 30px;
+	vertical-align: top;
+}
+
+#search:hover {
+	cursor: pointer;
+	font-size: 35px;
 }
