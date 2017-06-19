@@ -5,7 +5,7 @@ function search() {
 	var user_input = document.getElementById('input').value;
 	// console.log(user_input);
 
-	document.getElementById('results').innerHTML = "";
+	document.getElementById("results").innerHTML = "";
 
 	// AJAX calls request data from web server and displays it
 	$.ajax({
@@ -13,23 +13,29 @@ function search() {
 		dataType: "json",
 
 		success: function(data) {
-			var results = document.getElementById('results');
+			var results = document.getElementById("results");
+			// console.log(results);
+
+			// For all the data returned, display the thumbnail, preview link, title/author, and published date
 			for (i = 0; i< data.items.length; i++) {
-				results.innerHTML += '<h2>' + data.items[i].volumeInfo.title + "</h2>"
+				results.innerHTML += "<div class=\"container\"><div class=\"books pull-left\"><img class=\"pull-left\" src='" + 
+					data.items[i].volumeInfo.imageLinks.thumbnail + "'></div>" +
+				'<div class=\"books pull-left col-md-10 col-sm-8 col-xs-6\"><a href=\"' + 
+				data.items[i].volumeInfo.previewLink + '\"><h3>' + data.items[i].volumeInfo.title + '</h3></a>' + '<p>' +
+					data.items[i].volumeInfo.authors[0] + '</p><p>' +
+					data.items[i].volumeInfo.publishedDate + "</p><br></div></div>"
 			}
+			// console.log(data.items)
+
+			// console.log(results);
 		},
 
 		type: 'GET'
 	});
 }
 
+// on click run search
 document.getElementById('search').addEventListener('click', search, false)
 
-google.books.load();
-
-function initialize() {
-	var viewer = new google.books.DefaultViewer(document.getElementById('viewer'));
-	viewer.load('ISBN:0738531367');
-}
-
-google.books.setOnLoadCallback(initialize);
+// on tap for mobile, run search
+document.getElementById('search').addEventListener('tap', search, false)
